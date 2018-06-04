@@ -23,12 +23,12 @@ import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import './my-icons.js';
 
-// Gesture events like tap and track generated from touch will not be
-// preventable, allowing for better scrolling performance.
+// Eventos de gestos como tap y track generados desde touch no serán
+// evitable, lo que permite un mejor rendimiento de desplazamiento.
 setPassiveTouchGestures(true);
 
-// Set Polymer's root path to the same value we passed to our service worker
-// in `index.html`.
+// Establecer la ruta raíz de Polymer al mismo valor que le pasamos a nuestro trabajador de servicio
+// en `index.html`.
 setRootPath(MyAppGlobals.rootPath);
 
 class MyApp extends PolymerElement {
@@ -77,7 +77,7 @@ class MyApp extends PolymerElement {
       <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
       </app-route>
 
-      <app-drawer-layout fullbleed="" narrow="{{narrow}}">
+      <app-drawer-layout fullbleed="" opened="{{opened}}" narrow="{{narrow}}">
         <!-- Drawer content -->
         <app-drawer id="drawer" slot="drawer" swipe-open="[[narrow]]">
           <app-toolbar>Menu</app-toolbar>
@@ -116,6 +116,11 @@ class MyApp extends PolymerElement {
         reflectToAttribute: true,
         observer: '_pageChanged'
       },
+      opened: {
+        type: Boolean,
+        reflectToAttribute: true,
+        observer: '_openedChanged'
+      },
       routeData: Object,
       subroute: Object
     };
@@ -128,10 +133,10 @@ class MyApp extends PolymerElement {
   }
 
   _routePageChanged(page) {
-     // Show the corresponding page according to the route.
-     //
-     // If no page was found in the route data, page will be an empty string.
-     // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
+     // Muestra la página correspondiente según la ruta.
+    //
+    // Si no se encontró ninguna página en los datos de la ruta, la página será una cadena vacía.
+    // Muestra 'view1' en ese caso. Y si la página no existe, muestre 'view404'.
     if (!page) {
       this.page = 'view1';
     } else if (['view1', 'view2', 'view3'].indexOf(page) !== -1) {
@@ -140,17 +145,19 @@ class MyApp extends PolymerElement {
       this.page = 'view404';
     }
 
-    // Close a non-persistent drawer when the page & route are changed.
+    // Cierre un cajón no persistente cuando se cambian la página y la ruta.
     if (!this.$.drawer.persistent) {
       this.$.drawer.close();
     }
   }
-
+  _openedChanged(opened){
+    console.log(opened);
+ }
   _pageChanged(page) {
-    // Import the page component on demand.
-    //
-    // Note: `polymer build` doesn't like string concatenation in the import
-    // statement, so break it up.
+     // Importar el componente de la página bajo demanda.
+     //
+     // Nota: `polymer build` no le gusta la concatenación de cadenas en la importación
+     // declaración, así que desglosa.
     switch (page) {
       case 'view1':
         import('./my-view1.js');
