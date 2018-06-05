@@ -47,12 +47,12 @@ class MyApp extends PolymerElement {
                               app-header paper-icon-button {
                                     --paper-icon-button-ink-color: white;
                               }
-
-                        app-drawer{
+                        app-drawer {
                               color: red;
                         }
                               .drawer-list {
                                     margin: 0 20px;
+                                    color: red;
                               }
                                     .drawer-list a {
                                           display: block;
@@ -71,15 +71,15 @@ class MyApp extends PolymerElement {
                   </app-location>
                   <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
                   </app-route>
-                        
-                  <app-header-layout has-scrolling-region="">
+                      
+                  <app-header-layout >
                         <app-header slot="header" condenses="" reveals="" effects="waterfall">
                               <app-toolbar>
-                                    <paper-icon-button icon="my-icons:menu" drawer-toggle=""></paper-icon-button>
+                                    <paper-icon-button icon="my-icons:menu" drawer-toggle="" on-tap="drawerToggle"></paper-icon-button>
                                     <div main-title="">My App</div>
                               </app-toolbar>
                         </app-header>
-                        <app-drawer-layout fullbleed="" narrow="{{narrow}}"> 
+                        <app-drawer-layout narrow="{{narrow}}"> 
                               <app-drawer id="drawer" slot="drawer" opened="{{opened}}" swipe-open="[[narrow]]">
                                     <app-toolbar>Menu</app-toolbar>
                                     <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
@@ -90,14 +90,14 @@ class MyApp extends PolymerElement {
                               </app-drawer>
                         </app-drawer-layout>                              
                   </app-header-layout>
-                  
+                 
                   <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
                         <my-view1 name="view1"></my-view1>
                         <my-view2 name="view2"></my-view2>
                         <my-view3 name="view3"></my-view3>
                         <my-view404 name="view404"></my-view404>
                   </iron-pages>
-                  
+                
             `;
       }
 
@@ -161,6 +161,13 @@ class MyApp extends PolymerElement {
 
       _openedChanged(opened) {
             console.log(opened);
+      }
+
+      drawerToggle(opened) {
+            if (opened) {
+                  this.$.drawer.toggle();
+            }
+            //console.log('Ow!');
       }
 
 }
