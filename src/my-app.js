@@ -73,6 +73,7 @@ class MyApp extends PolymerElement {
                   </app-route>
                       
                   <app-header-layout >
+
                         <app-header slot="header" condenses="" reveals="" effects="waterfall">
                               <app-toolbar>
                                     <paper-icon-button icon="my-icons:menu" drawer-toggle="" on-tap="drawerToggle"></paper-icon-button>
@@ -80,7 +81,7 @@ class MyApp extends PolymerElement {
                               </app-toolbar>
                         </app-header>
 
-                        <app-drawer-layout narrow="{{narrow}}"> 
+                        <app-drawer-layout id="drawerLayout" narrow="{{narrow}}"> 
                               <app-drawer id="drawer" slot="drawer" opened="{{opened}}" swipe-open="[[narrow]]">
                                     <app-toolbar>Menu</app-toolbar>
                                     <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
@@ -90,16 +91,15 @@ class MyApp extends PolymerElement {
                                     </iron-selector>
                               </app-drawer>
                               <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-                              <my-view1 name="view1"></my-view1>
-                              <my-view2 name="view2"></my-view2>
-                              <my-view3 name="view3"></my-view3>
-                              <my-view404 name="view404"></my-view404>
-                        </iron-pages>
-                        </app-drawer-layout>                              
+                                    <my-view1 name="view1"></my-view1>
+                                    <my-view2 name="view2"></my-view2>
+                                    <my-view3 name="view3"></my-view3>
+                                    <my-view404 name="view404"></my-view404>
+                              </iron-pages>
+                        </app-drawer-layout>  
+
                   </app-header-layout>
-                 
-                 
-                
+                                 
             `;
       }
 
@@ -114,6 +114,12 @@ class MyApp extends PolymerElement {
                         type: Boolean,
                         reflectToAttribute: true,
                         observer: '_openedChanged'
+                  },
+                  narrow: {
+                        type: Boolean,
+                        reflectToAttribute: true,
+                       // notify:true,
+                        observer: '_narrowChanged'
                   },
                   routeData: Object,
                   subroute: Object
@@ -162,14 +168,20 @@ class MyApp extends PolymerElement {
       }
 
       _openedChanged(opened) {
-            console.log(opened);
+        //console.log('el "drawer" esta "opened"? '  + opened);
       }
 
-      drawerToggle(opened) {
-            if (opened) {
+      _narrowChanged(narrow) {
+       //console.log('la ventana es "narrow"? ' + narrow);
+       console.log('la ventana es "narrow"? ' + [[narrow]]);
+      }
+
+      drawerToggle() {
+            //if (narrow) {
                   this.$.drawer.toggle();
-            }
-            //console.log('Ow!');
+           // }
+           // console.log('Ow!');
+           // console.log(narrow);
       }
 
 }
