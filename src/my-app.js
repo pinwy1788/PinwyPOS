@@ -78,7 +78,7 @@ class MyApp extends PolymerElement {
                         <app-header slot="header" condenses="" reveals="" effects="waterfall">
                               <app-toolbar>
                                     <paper-icon-button icon="my-icons:menu" drawer-toggle="" on-tap="drawerToggle"></paper-icon-button>
-                                    <div main-title="">My App</div>
+                                    <div main-title="">Pinwy POS</div>
                               </app-toolbar>
                         </app-header>
 
@@ -86,9 +86,9 @@ class MyApp extends PolymerElement {
                               <app-drawer id="drawer" slot="drawer" opened="{{opened}}" swipe-open="[[narrow]]">
                                     <app-toolbar>Menu</app-toolbar>
                                     <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-                                          <a name="view1" href="[[rootPath]]view1">Dashboard</a>
-                                          <a name="view2" href="[[rootPath]]view2">TPV</a>
-                                          <a name="view3" href="[[rootPath]]view3">Configuraciones</a>
+                                          <a name="view1" href="[[rootPath]]view1"><iron-icon icon="my-icons:dashboard"></iron-icon> Dashboard</a>
+                                          <a name="view2" href="[[rootPath]]view2"><iron-icon icon="my-icons:tv"></iron-icon> TPV</a>
+                                          <a name="view3" href="[[rootPath]]view3"><iron-icon icon="my-icons:settings"></iron-icon> Configuraciones</a>
                                     </iron-selector>
                               </app-drawer>
                               <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
